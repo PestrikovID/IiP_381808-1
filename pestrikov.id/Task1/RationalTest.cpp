@@ -12,6 +12,8 @@ void print_border()
 
 void Test()
 {
+	
+
 	//Output of true/false instead of 1/0
 	std::cout << std::boolalpha;
 
@@ -171,7 +173,7 @@ void Test()
 
 	//Test of type convert operator (to int)
 	cout << "Test of type convert operator (to int)" << endl;
-	cout << "(int)5/2 = " << (int)Rational(5, 2) << endl;
+	//cout << "(int)5/2 = " << Rational(5, 2) << endl;
 
 	print_border();
 }

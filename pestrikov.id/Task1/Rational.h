@@ -6,8 +6,8 @@ class Rational
 {
 public:
 	//Constructors-------------------------------------------------------------------
-	explicit Rational(long long n, long long m = 1);
-	
+	Rational(long long n, long long m = 1);
+		
 	//Getters------------------------------------------------------------------------
 	long long Get_n() const { return n; }
 	long long Get_m() const { return m; }
@@ -38,7 +38,7 @@ public:
 	bool operator<= (const Rational & other);
 	
 	//Types convert operators---------------------------------------------------------
-	operator long long() const;
+	explicit operator long long() const;
 
 	//Operator = ---------------------------------------------------------------------
 	Rational & operator = (const Rational & other);
