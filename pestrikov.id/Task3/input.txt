@@ -1,0 +1,7 @@
+6
+11 Bubble sort
+10 Merge sort
+10 Quick sort
+14 Insertion sort
+9 Heap sort
+14 Selection sort
