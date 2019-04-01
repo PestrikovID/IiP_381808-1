@@ -3,9 +3,18 @@
 #include "Menu.h"
 #include <conio.h>
 #include <fstream>
+#include <vector>
 
 int main()
 {
+	//--------------------------------------------
+	Array<int> *pArr = new Array<int>(10);
+	delete pArr;
+
+	std::cout << pArr->getCapacity() << std::endl;
+	std::cout << (*pArr)[1] << std::endl;
+	//---------------------------------------------
+
 	Menu menu;
 	menu.addCommand("Bubble sort");
 	menu.addCommand("Merge sort");

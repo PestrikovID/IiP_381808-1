@@ -2,15 +2,13 @@
 #include <exception>
 #include <algorithm>
 
-#define TEST
-
 template <class T>
 class Array
 {
 public:
 	//Constructors-----------------------------------------------------------
 	Array();
-	Array(size_t size);
+	Array(int size);
 	Array(const Array<T>& other);
 
 	//Destructor-------------------------------------------------------------
@@ -18,73 +16,86 @@ public:
 
 	//Methods----------------------------------------------------------------
 	//Changes actual size of array
-	void resize(size_t size);
+	void resize(int size);
 
-	size_t getSize() const { return size; }
-	size_t getCapacity() const { return capacity; }
+	int getSize() const { return size; }
+	int getCapacity() const { return capacity; }
 
-	void pushBack(T element) {
-		if (size == capacity) {
-			expandCapacity(capacity * 2);
-		}
-		data[size++] = element;
-	}
+	void pushBack(T element);	
 
 	void clear();
 
 	//Operators--------------------------------------------------------------
-	T& operator[](size_t index) {
-		if (index >= size) {
-			throw OutOfRangeException("Index >= size");
-		}
-		return data[index];
-	}
+	T& operator[](int index);	
 
-	const T& operator[](size_t index) const {
-		if (index >= size) {
-			throw OutOfRangeException("Index >= size");
-		}
-		return data[index];
-	}
+	const T& operator[](int index) const;
+	
 
-	T operator=(const Array<T>& other);
+	T& operator=(const Array<T>& other);
 
 	bool operator==(const Array<T>& other);
 
 private:
 	T* data;
-	size_t size; //current size of array
-	size_t capacity; //size of allocated memory
+	int size; //current size of array
+	int capacity; //size of allocated memory
 
-	const size_t START_SIZE = 0;
-	const size_t START_CAPACITY = 1;
+	const int START_SIZE = 0;
+	const int START_CAPACITY = 1;
 
-	void expandCapacity(size_t newCapaity);
+	void expandCapacity(int newCapaity);
+
+	void defaultInit();
 
 public:
 	class OutOfRangeException : public std::exception
 	{
 	public:
 		OutOfRangeException(const char* message) : std::exception(message)
-		{ }
+		{}
+
+		OutOfRangeException() : std::exception()
+		{}
+	};
+
+	class SizeLessThanZeroException : public std::exception
+	{
+	public: 
+		SizeLessThanZeroException(const char* message) : std::exception(message)
+		{}
+
+		SizeLessThanZeroException() : std::exception()
+		{}
 	};
 };
 
 
-
-
 template<class T>
-inline Array<T>::Array() {
+inline void Array<T>::defaultInit() {
 	capacity = START_CAPACITY;
 	size = START_SIZE;
 	data = new T[START_CAPACITY];
 }
 
 template<class T>
-inline Array<T>::Array(size_t size) {
-	capacity = size;
-	this->size = size;
-	data = new T[size];
+inline Array<T>::Array() {
+	defaultInit();
+}
+
+template<class T>
+inline Array<T>::Array(int size) {
+	if (size < 0) {
+		throw SizeLessThanZeroException();
+	}
+
+	if (size == 0) {
+		defaultInit();
+	}
+	else {
+		capacity = size;
+		this->size = size;
+		data = new T[size];
+	}
 }
 
 template<class T>
@@ -114,7 +125,11 @@ inline Array<T>::~Array() {
 }
 
 template<class T>
-inline void Array<T>::resize(size_t size) {
+inline void Array<T>::resize(int size) {
+	if (size < 0) {
+		throw SizeLessThanZeroException();
+	}
+
 	//Size of allocated memory is enough to expand current size of array
 	//or to narrow it
 	if (size <= this->capacity) {
@@ -133,6 +148,14 @@ inline void Array<T>::resize(size_t size) {
 }
 
 template<class T>
+inline void Array<T>::pushBack(T element) {
+	if (size == capacity) {
+		expandCapacity(capacity * 2);
+	}
+	data[size++] = element;
+}
+
+template<class T>
 inline void Array<T>::clear() {
 	delete[] data;
 	capacity = START_CAPACITY;
@@ -141,28 +164,50 @@ inline void Array<T>::clear() {
 }
 
 template<class T>
-inline T Array<T>::operator=(const Array<T>& other) {
-	if (this == *other) {
-		return this;
+inline T & Array<T>::operator[](int index) {
+	if (index >= size || index < 0) {
+		throw OutOfRangeException("Index >= size");
+	}
+	return data[index];
+}
+
+template<class T>
+inline const T & Array<T>::operator[](int index) const {
+	if (index >= size || index < 0) {
+		throw OutOfRangeException("Index >= size");
+	}
+	return data[index];
+}
+
+
+template<class T>
+inline T& Array<T>::operator=(const Array<T>& other) {
+	if (this == &other) {
+		return *this;
 	}
 
 	//Size of allocated memory is enough to copy all elements from other to this	
 	if (this->capacity >= other.size) {
 		std::copy(other.data, other.data + other.size, data);
 		this->size = other.size;
-		return this;
+		return *this;
 	}
 
 	//If it's necessary to expand this
 	delete[] this->data;
+	std::copy(other.data, other.data + other.size, data);
+	//std::copy is analog of this
+	/*
 	this->data = new T[other.size];
 	for (size_t i = ; i < other.size; ++i) {
 		this->data[i] = other.data[i];
 	}
+	*/
+
 	this->size = other.size;
 	this->capacity = other.size;
 
-	return this;
+	return *this;
 }
 
 template<class T>
@@ -179,7 +224,7 @@ inline bool Array<T>::operator==(const Array<T>& other) {
 }
 
 template<class T>
-inline void Array<T>::expandCapacity(size_t newCapaity) {
+inline void Array<T>::expandCapacity(int newCapaity) {
 	T* newData = new T[newCapaity];
 	std::copy(data, data + size, newData);
 	delete[] data;

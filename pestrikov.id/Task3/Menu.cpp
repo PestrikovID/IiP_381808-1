@@ -5,7 +5,7 @@ Menu::Menu() {
 	selected = 0;
 }
 
-Menu::Menu(size_t count) : Menu() {
+Menu::Menu(int count) : Menu() {
 	commands.resize(count);
 }
 

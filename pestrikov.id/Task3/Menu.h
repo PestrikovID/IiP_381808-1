@@ -11,18 +11,18 @@ public:
 
 	//Constructors---------------------------------------------------------------
 	Menu();
-	Menu(size_t count); 
+	Menu(int count); 
 
 
 	//Operators------------------------------------------------------------------
-	std::string& operator[](size_t index) { return commands[index]; }
-	const std::string& operator[](size_t index) const { return commands[index]; }
+	std::string& operator[](int index) { return commands[index]; }
+	const std::string& operator[](int index) const { return commands[index]; }
 	friend std::istream& operator>>(std::istream& in, Menu& menu);
 	friend std::ostream& operator<<(std::ostream& out, const Menu& menu);
 
 
 	//Public methods-------------------------------------------------------------
-	void setCommandsCount(size_t count) { commands.resize(count); }
+	void setCommandsCount(int count) { commands.resize(count); }
 	size_t getCommandsCount() { return commands.getSize(); }
 	void printInPosition(int x, int y);
 	int getSelected() { return selected; }
