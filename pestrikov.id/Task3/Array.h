@@ -122,6 +122,10 @@ inline Array<T>::Array(const Array<T>& other) {
 template <class T>
 inline Array<T>::~Array() {
 	delete[] data;
+	data = nullptr;
+	size = -1;
+	capacity = -1;
+
 }
 
 template<class T>
