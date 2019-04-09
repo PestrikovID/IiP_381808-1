@@ -24,8 +24,9 @@ public:
 	void pushBack(T element);	
 
 	void clear();
-
 	void sort() { std::sort(data, data + size); }
+	   	  
+	bool eraseElement(T* element);
 
 	//Operators--------------------------------------------------------------
 	T& operator[](int index);	
@@ -69,6 +70,8 @@ public:
 		SizeLessThanZeroException() : std::exception()
 		{}
 	};
+
+	
 };
 
 
@@ -112,7 +115,7 @@ inline Array<T>::Array(const Array<T>& other) {
 	//If it's necessary to expand this
 	delete[] this->data;
 	this->data = new T[other.size];
-	for (size_t i = ; i < other.size; ++i) {
+	for (size_t i = 0; i < other.size; ++i) {
 		this->data[i] = other.data[i];
 	}
 	this->size = other.size;
@@ -167,6 +170,18 @@ inline void Array<T>::clear() {
 	capacity = START_CAPACITY;
 	size = START_SIZE;
 	data = new T[START_CAPACITY];
+}
+
+template<class T>
+inline bool Array<T>::eraseElement(T * element) {
+	if (data > element || data + size <= element) 		{
+		return false;
+	}
+	for (T* pointer = element; pointer != data + size; ++pointer) {
+		*pointer = *(pointer + 1);
+	}
+	--size;
+	return true;
 }
 
 template<class T>

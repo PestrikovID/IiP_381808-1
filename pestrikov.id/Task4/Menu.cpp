@@ -20,14 +20,13 @@ void Menu::printInPosition(int x, int y) {
 			changeConsoleColors(LightGray, Black);
 			continue;
 		}
-
 		std::cout << commands[i] << std::endl;
 	}
 }
 
 
 
-void Menu::startSelection(int x, int y) {
+void Menu::startSelection(int x, int y, Contacts& contacts) {
 	printInPosition(x, y);
 
 	while (true) {
@@ -37,13 +36,18 @@ void Menu::startSelection(int x, int y) {
 		//Enter is pressed
 		if (key == 13) {
 			system("cls");
-			commands_methods[selected]();
+			commands_methods[selected](contacts);
+			std::cout << std::endl << "Нажмите escape, чтобы вернуться в главное меню";
+			while (_getch() != 27) {
+				// do nothing
+			}
+			system("cls");
 			printInPosition(x, y);
-			break;
+			continue;
 		}
 		switch (_getch()) {
-		
-		//Up key is pressed
+
+			//Up key is pressed
 		case 72:
 			--selected;
 			if (selected < 0) {
@@ -52,7 +56,7 @@ void Menu::startSelection(int x, int y) {
 			printInPosition(x, y);
 			break;
 
-		//Down key is pressed
+			//Down key is pressed
 		case 80:
 			++selected;
 			if (selected == commands.getSize()) {
@@ -86,7 +90,7 @@ std::istream & operator>>(std::istream & in, Menu & menu) {
 	size_t size;
 	in >> size;
 	menu.commands.resize(size);
-	
+
 	for (int i = 0; i < menu.commands.getSize(); ++i) {
 		int commandSize;
 		in >> commandSize;

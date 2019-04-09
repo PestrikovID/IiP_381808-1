@@ -146,6 +146,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Contacts.cpp" />
+    <ClCompile Include="ContactsTest.cpp" />
+    <ClCompile Include="Date.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Person.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Array.h" />
+    <ClInclude Include="Contacts.h" />
+    <ClInclude Include="Date.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="Person.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

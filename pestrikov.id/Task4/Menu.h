@@ -5,6 +5,7 @@
 #include <Windows.h>
 #include <conio.h>
 #include <functional>
+#include "Contacts.h"
 
 class Menu
 {
@@ -12,7 +13,7 @@ public:
 
 	//Constructors---------------------------------------------------------------
 	Menu();
-	Menu(int count); 
+	Menu(int count);
 
 
 	//Operators------------------------------------------------------------------
@@ -23,24 +24,26 @@ public:
 
 
 	//Public methods-------------------------------------------------------------
-	void setCommandsCount(int count) { 
+	void setCommandsCount(int count) {
 		commands.resize(count);
 		commands_methods.resize(count);
 	}
 	size_t getCommandsCount() { return commands.getSize(); }
 	void printInPosition(int x, int y);
 	int getSelected() { return selected; }
-	void addCommand(std::string commandName, std::function<void()> method) { 
+	void addCommand(std::string commandName) {
 		commands.pushBack(commandName);
+	}
+	void addCommandMethod(std::function<void(Contacts&)> method) {
 		commands_methods.pushBack(method);
 	}
-	
+
 	//Draws menu in (x, y) position and allows to select some clause
-	void startSelection(int x, int y);
+	void startSelection(int x, int y, Contacts& contacts);
 
 private:
 	Array<std::string> commands;
-	Array<std::function<void()>> commands_methods;
+	Array<std::function<void(Contacts&)>> commands_methods;
 
 	int selected;
 	HANDLE hout;
