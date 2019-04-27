@@ -146,6 +146,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Array.h" />
+    <ClInclude Include="BarCode.h" />
+    <ClInclude Include="CashBox.h" />
+    <ClInclude Include="Check.h" />
+    <ClInclude Include="Product.h" />
+    <ClInclude Include="Stock.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BarCode.cpp" />
+    <ClCompile Include="CashBoxTest.cpp" />
+    <ClCompile Include="Check.cpp" />
+    <ClCompile Include="Product.cpp" />
+    <ClCompile Include="Stock.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
