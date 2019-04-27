@@ -1,6 +1,7 @@
-#pragma once
+﻿#pragma once
 #include <string>
 
+//класс для хранения штрих кода
 class BarCode
 {
 public:
