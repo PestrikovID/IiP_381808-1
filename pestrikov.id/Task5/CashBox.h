@@ -5,6 +5,7 @@
 #include "Check.h"
 #include "BarCode.h"
 
+//касса
 class CashBox
 {
 public:
@@ -13,6 +14,9 @@ public:
 	void scanProduct(BarCode barCode);	
 	int getFinalTotalCost() { return mCheck.calculateFinalTotalCost(); }
 	Check getCheck() { return mCheck; }
+
+	//ќчищает чек дл€ повторного использовани€
+	void clearCheck() { mCheck.clear(); }
 
 private:
 	Check mCheck;

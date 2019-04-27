@@ -4,13 +4,18 @@
 #include <random>
 #include "BarCode.h"
 
+// Описание товара
 class Product
 {
 private:
 
+	// Штрих код
 	BarCode mBarCode;
+	// Наименование товара
 	std::string mName;
+	// Цена
 	int mCost;
+	// Скидка
 	int mDiscount;
 
 	const std::string DEFAULT_NAME = "Not defined";

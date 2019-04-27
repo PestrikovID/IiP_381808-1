@@ -2,6 +2,7 @@
 #include <string>
 
 //класс для хранения штрих кода
+//сделан для того, чтобы объект (штрих код) мог сам проверять себя на корректность
 class BarCode
 {
 public:
@@ -27,11 +28,14 @@ public:
 	}		
 
 private:
+	//само значение штрих кода
 	std::string mValue;
 
 	bool isValueCorrect(std::string value);
 
+	//Длина штрих кода
 	const int BAR_CODE_LENGTH = 4;
+	//Базовое значение штрих кода (если не задано клиентом класса)
 	static const std::string DEFAULT_BAR_CODE_VALUE;
 };
 

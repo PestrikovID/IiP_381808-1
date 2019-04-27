@@ -3,6 +3,7 @@
 #include "Product.h"
 #include "BarCode.h"
 
+// Склад
 class Stock
 {
 public:
@@ -24,6 +25,7 @@ public:
 	Product* getProductByBarCode(BarCode barCode);
 
 private:
+	// Все товары, хранящиеся на складе
 	Array<Product> mProducts;
 };
 

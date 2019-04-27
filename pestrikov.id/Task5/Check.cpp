@@ -13,6 +13,13 @@ void Check::addProduct(Product product) {
 	mProductCounts.pushBack(1);
 }
 
+void Check::clear() {
+	mProductCounts.clear();
+	mProducts.clear();
+	mTotalCost = 0;
+	mTotalDiscount = 0;
+}
+
 std::string Check::getProductDescription(const Product& product, int count) {
 	std::string result;
 	
